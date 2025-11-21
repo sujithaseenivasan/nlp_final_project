@@ -1,0 +1,6 @@
+torch==2.2.1
+transformers==4.38.2
+datasets==2.18.0
+tokenizers==0.15.2
+numpy==1.26.4
+tqdm==4.66.2
