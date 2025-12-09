@@ -27,9 +27,6 @@ def tokenize_data(max_len=128, n_train=20000, n_val=5000):
 
     return tokenizer, train_map, val_map
 
-tokenize_data()
-
-
 
 def sinusoidal_position_encoding(seq_len, d_model, device):
     pe = torch.zeros(seq_len, d_model, device=device)
