@@ -132,6 +132,8 @@ class MultiHeadSelfAttention(nn.Module):
             self.rotary = RotaryEmbedding(self.head_dim, max_position_embeddings=max_len)
         else:
             self.rotary = None
+        self.save_attn = False
+        self.last_attn_weights = None
 
     def forward(self, x):
         """
@@ -164,6 +166,9 @@ class MultiHeadSelfAttention(nn.Module):
         # Softmax + dropout
         attn_weights = torch.softmax(attn_scores, dim=-1)
         attn_weights = self.attn_dropout(attn_weights)
+
+        if self.save_attn:
+            self.last_attn_weights = attn_weights.detach().cpu()
 
         # Attention output: (B, n_heads, T, head_dim)
         attn_output = torch.matmul(attn_weights, v)
